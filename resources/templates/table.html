@@ -1,0 +1,101 @@
+<html>
+<head>
+
+</head>
+<body>
+<form th:action="@{/save}" method="post">
+<table id="tbl_exporttable_to_xls" name="tbl_exporttable_to_xls" border="1" th:each="list : ${employeelist}">
+<tr>
+
+<td>
+Qualité de travail : 
+
+
+</td>
+<td th:text="${list.score}"></td>
+
+</tr>
+	<tr>
+<td>
+
+Respect des délais : 
+
+
+</td>
+<td th:text="${list.score1}"></td>
+
+
+</tr>
+<tr>
+<td>
+
+Compréhension de besoin : 
+
+</td>
+
+<td th:text="${list.score2}"></td>
+
+</tr>
+<tr>
+<td>
+
+Initiative : 
+
+</td>
+<td th:text="${list.score3}"></td>
+
+</tr>
+<tr>
+<td>
+
+Attitude et comportement : 
+</td>
+<td th:text="${list.score4}"></td>
+
+</tr>
+<tr>
+<td>
+Assiduité : 
+
+</td>
+<td th:text="${list.score5}"></td>
+
+</tr>
+<tr>
+<td>>Somme</td>
+<td th:text="${list.score} + ${list.score1}+${list.score2}+${list.score3}+ ${list.score4} + ${list.score1}" >
+</td >
+
+</tr>
+<tr>
+<td>
+<button type="submit" class="btn btn-success">ENREGISTRER</button>
+<div>
+
+</div><br/>
+</td>
+</tr>
+
+</table>
+
+	
+</form>
+
+<button onclick="ExportToExcel('xlsx')">Export table to excel</button>
+
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js">
+
+
+</script>
+<script>
+function ExportToExcel(type, fn, dl) {
+       var elt = document.getElementById('tbl_exporttable_to_xls');
+       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+       return dl ?
+         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+    }
+</script>
+
+</body>
+</html>
